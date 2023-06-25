@@ -29,7 +29,7 @@ function App() {
         <div>
           <AppBar navItem={pages} />
           <Routes>
-            <Route path="/" element={<ItemList />} />
+            <Route path="/" element={<Home />} />
 
             <Route path="/Home" element={<Home />} />
 

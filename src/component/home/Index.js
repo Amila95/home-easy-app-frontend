@@ -11,10 +11,12 @@ import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { Button } from "@mui/material";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import UpdateIcon from "@mui/icons-material/Update";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AddModal from "../addModal";
+import TextField from "@mui/material/TextField";
 
 const style = {
   position: "absolute",
@@ -150,6 +152,31 @@ function Index() {
         console.error("Error:", error);
       });
   };
+
+  const selectItemToUpdate = (value) => {
+    console.log("click : delete ");
+    // fetch("/api/v1/item/" + value.id, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     name: value.name,
+    //     pickup: true,
+    //   }),
+    // })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       console.log("checkin succefully");
+    //       fetchData();
+    //     } else {
+    //       console.error("Delete failed");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+  };
   return (
     <div>
       <Container maxWidth="xl">
@@ -181,14 +208,11 @@ function Index() {
               <ListItem
                 key={value.id}
                 secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    on
-                    onClick={() => deleteItem(value.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  <AddModal
+                    fetchData={fetchData}
+                    Name={value.name}
+                    itemQty={value.quantity}
+                  />
                 }
                 disablePadding
               >
@@ -203,15 +227,50 @@ function Index() {
                     />
                   </ListItemIcon>
 
-                  <ListItemText id={labelId} primary={value.name} />
-                  <IconButton
+                  <ListItemText
+                    id={labelId}
+                    primary={
+                      value.name.length > 20
+                        ? `${value.name.slice(0, 17)}...`
+                        : value.name
+                    }
+                    sx={{
+                      flex: "1 1 60%",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  />
+                  <ListItemText
+                    id={labelId}
+                    primary={value.quantity}
+                    sx={{
+                      flex: "0 0 20%",
+                      minWidth: "60px",
+                    }}
+                  />
+
+                  {/* <IconButton
                     edge="end"
                     aria-label="delete"
                     on
                     onClick={() => selectItem(value)}
                   >
                     <DoneAllIcon />
-                  </IconButton>
+                  </IconButton> */}
+                  {/* <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    on
+                    onClick={() => selectItemToUpdate(value)}
+                  >
+                    <UpdateIcon />
+                  </IconButton> */}
+                  {/* <AddModal
+                    fetchData={fetchData}
+                    Name={value.name}
+                    itemQty={value.quantity}
+                  /> */}
                 </ListItemButton>
               </ListItem>
             );
