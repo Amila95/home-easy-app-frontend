@@ -3,20 +3,14 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Checkbox from "@mui/material/Checkbox";
-import Avatar from "@mui/material/Avatar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import { Button } from "@mui/material";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import UpdateIcon from "@mui/icons-material/Update";
-import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AddModal from "../addModal";
-import TextField from "@mui/material/TextField";
 
 const style = {
   position: "absolute",
