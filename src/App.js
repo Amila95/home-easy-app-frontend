@@ -19,25 +19,60 @@ import Home from "./component/home/Index";
 import ItemList from "./component/itemList";
 import BillPage from "./component/billPage";
 import AppBar from "./component/appBar";
+import Login from "./component/login/Index";
+import Registation from "./component/registation";
+import { AuthProvider, RequireAuth } from "react-auth-kit";
 
 const pages = ["Home", "ItemList", "BillPage", "TextNav"];
 
 function App() {
   return (
     <div>
-      <Router>
-        <div>
-          <AppBar navItem={pages} />
-          <Routes>
-            <Route path="/" element={<Home />} />
+      <AuthProvider authType={"localstorage"} authName={"_auth"}>
+        <Router>
+          <div>
+            <Routes>
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Register" element={<Registation />} />
+            </Routes>
 
-            <Route path="/Home" element={<Home />} />
+            <AppBar navItem={pages} renderInRoutes={[]} />
+            <Routes>
+              <Route
+                path={"/Home"}
+                element={
+                  <RequireAuth loginPath={"/login"}>
+                    <Home />
+                  </RequireAuth>
+                }
+              />
+              {/* <Route path="/" element={<Home />} /> */}
 
-            <Route path="/ItemList" element={<ItemList />} />
-          </Routes>
-          {/* <Footer/> */}
-        </div>
-      </Router>
+              <Route
+                path={"/"}
+                element={
+                  <RequireAuth loginPath={"/login"}>
+                    <Home />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path={"/ItemList"}
+                element={
+                  <RequireAuth loginPath={"/login"}>
+                    <ItemList />
+                  </RequireAuth>
+                }
+              />
+
+              {/* <Route path="/Home" element={<Home />} /> */}
+
+              {/* <Route path="/ItemList" element={<ItemList />} /> */}
+            </Routes>
+            {/* <Footer/> */}
+          </div>
+        </Router>
+      </AuthProvider>
       {/* {component === 'Home' ? <Home /> : <ItemList/>} */}
     </div>
   );
