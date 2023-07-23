@@ -11,6 +11,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AddModal from "../addModal";
+import { useAuthHeader } from "react-auth-kit";
 
 const style = {
   position: "absolute",
@@ -31,16 +32,27 @@ function Index() {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [checkItem, setCheckItem] = useState([]);
+  const authHeader = useAuthHeader();
 
   useEffect(() => {
+    console.log("useAuthHeader :" + authHeader());
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/api/v1/item");
-      const data = await response.json();
-      setData(data);
+      const response = await fetch("/api/v1/item", {
+        headers: {
+          Authorization: authHeader(),
+          // Add any other headers if required
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+      } else {
+        setData([]);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -68,6 +80,7 @@ function Index() {
     fetch("/api/v1/item", {
       method: "DELETE",
       headers: {
+        Authorization: authHeader(),
         "Content-Type": "application/json",
       },
       body: JSON.stringify(checkItem),
@@ -106,6 +119,7 @@ function Index() {
     fetch("/api/v1/item", {
       method: "PUT",
       headers: {
+        Authorization: authHeader(),
         "Content-Type": "application/json",
       },
       body: JSON.stringify(checkItem),

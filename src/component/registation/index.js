@@ -10,6 +10,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useSubmit } from "react-router-dom";
 import UpdateIcon from "@mui/icons-material/Update";
 import "./index.css"; // Import your CSS file
+import { Link } from 'react-router-dom';
+import Stack from '@mui/material/Stack';
 
 const style = {
   position: "absolute",
@@ -156,25 +158,22 @@ function Index() {
         </TextField>
         <br></br> */}
         <br></br>
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             marginTop: "20px",
           }}
-        >
-          <Button
-            variant="outlined"
-            onClick={handleClose}
-            sx={{ marginRight: "10px" }}
-          >
-            Back To Login
-          </Button>
+        > */}
+        <Stack spacing={2} direction="row">
+          
+          <Link to="/Login">Back To Login</Link>
+
 
           <Button variant="contained" onClick={handleClick}>
             Register
           </Button>
-        </Box>
+          </Stack>
       </Box>
     </div>
   );

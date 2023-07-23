@@ -1,5 +1,7 @@
 import { useSignIn } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
+
 
 const HandleClickComponent = ({ email, password }) => {
   let navigate = useNavigate();
@@ -36,19 +38,37 @@ const HandleClickComponent = ({ email, password }) => {
         password: password,
       }),
     })
-      .then((response) => response.json())
+    // .then((response) => {
+    //   console.log("status : " +(response.status));
+    // })
+      .then((responseData) => responseData.json())
       .then((data) => {
-        // Handle the response data
-        console.log(data);
+        if (data.token != undefined) {
         handleSignIn(data);
-        navigate("/home");
-
-        //();
+          navigate("/home");
+       }
       })
       .catch((error) => {
         // Handle any errors
         console.error("Error:" + error);
       });
+
+      // try {
+      //   const response = await fetch("/api/v1/item", {
+      //     headers: {
+      //       Authorization: authHeader(),
+      //       // Add any other headers if required
+      //     },
+      //   });
+      //   if (response.ok) {
+      //     const data = await response.json();
+      //     setData(data);
+      //   } else {
+      //     setData([]);
+      //   }
+      // } catch (error) {
+      //   console.error(error);
+      // }
     //   .finally(() => {
     //     setFirstName(null);
     //     setLastName(null);
@@ -57,7 +77,7 @@ const HandleClickComponent = ({ email, password }) => {
     //   });
   };
 
-  return <button onClick={handleClick}>Click Me</button>;
+  return <Button variant="contained" onClick={handleClick}> Login</Button>;
 };
 
 export default HandleClickComponent;

@@ -10,6 +10,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useSubmit } from "react-router-dom";
 import UpdateIcon from "@mui/icons-material/Update";
 import "./index.css"; // Import your CSS file
+import {useAuthHeader} from 'react-auth-kit'
+
 
 const style = {
   position: "absolute",
@@ -36,6 +38,8 @@ function Index({ fetchData, Name, itemQty }) {
     setOpen(false);
     setItemNameError(false);
   };
+  const authHeader = useAuthHeader()
+
 
   const handleClick = () => {
     console.log("click : " + itemName + itemQuentity + status);
@@ -46,6 +50,7 @@ function Index({ fetchData, Name, itemQty }) {
     fetch("/api/v1/item", {
       method: "POST",
       headers: {
+        Authorization: authHeader(),
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
